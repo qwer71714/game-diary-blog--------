@@ -4,7 +4,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import styled from 'styled-components';
 
-const Heathers = styled(Navbar)`
+const Heather = styled(Navbar)`
     align-items: center;
 `
 
@@ -27,9 +27,9 @@ const Navdiv = styled(Nav)`
     }
 `;
 
-function Heather() {
+const Heathers = () => {
     return(
-        <Heathers bg="dark" variant="dark">
+        <Heather bg="dark" variant="dark">
         <Container>
           <Brand href="#home">Steam-Qr</Brand>
           <Navdiv>
@@ -39,8 +39,9 @@ function Heather() {
             <Nav.Link href="#menu">전체 메뉴</Nav.Link>
           </Navdiv>
         </Container>
-      </Heathers>
+      </Heather>
     );
 }
 
-export default Heather
+export default Heathers
+
