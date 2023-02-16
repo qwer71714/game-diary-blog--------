@@ -1,5 +1,4 @@
 import './App.css';
-import styled from 'styled-components';
 import Introduction from './components/Main';
 import Heathers from './components/Navbar';
 import { Container } from 'react-bootstrap';
