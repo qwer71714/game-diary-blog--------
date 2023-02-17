@@ -86,7 +86,7 @@ const NoticeBox = styled.div`
 const AnnounBox = styled.div`
     border: 1px solid #000;
     border-radius: 15px;
-    margin: 5vh 10vh 0 0;
+    margin: 2vh 10vh 0 0;
     padding: 3vh;
 `;
 
@@ -126,7 +126,6 @@ function Introduction () {
 
             <Notice>
                 <h1>공지사항</h1>
-
                 <NoticeBox>
                     <AnnounBox>
                         <Announcement/>
