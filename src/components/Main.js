@@ -3,8 +3,10 @@ import '../App';
 import styled from 'styled-components';
 import LatestPostsComponent from '../Page/Bulle';
 
-import { TitleBox } from './Title-ps';
+
 import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { TitleBox } from './Title-ps';
+import { Announcement } from './NoticetexBox';
 
 const Bigtitle = `
     font-weight: 900;
@@ -14,7 +16,7 @@ const Bigtitle = `
 `
 
 const Texturepowder =`
-    margin-top: 10vh;
+    margin-top: 15vh;
     text-align: left;
     font-weight: 400;
     line-height: 32px;
@@ -37,8 +39,9 @@ const Latest = styled.div`
 
 const Bulletin = styled.div`
     border: 1px solid #000;
+    border-radius: 15px;
     margin-top: 3vh;
-    padding: 10px;
+    padding: 3vh;
 `;
 
 const Shortcuts = styled.section`
@@ -68,6 +71,25 @@ const Top = styled(Tooltip)`
     margin-bottom: 3vh;
 `;
 
+const Notice = styled.section`
+    ${Texturepowder}
+
+    h1{
+        ${Bigtitle}
+    }    
+`;
+
+const NoticeBox = styled.div`
+    display: flex;
+`;
+
+const AnnounBox = styled.div`
+    border: 1px solid #000;
+    border-radius: 15px;
+    margin: 5vh 10vh 0 0;
+    padding: 3vh;
+`;
+
 function Introduction () {
     return(
         <div className='App'>
@@ -75,7 +97,6 @@ function Introduction () {
                 
             <TitleBox/>{/* 텍스터 자기소개서 글내용 TitleBox */}
                 <Latest>
-                    <b>오늘의 블로그 소식</b>
                     <Bulletin>
                         <LatestPostsComponent/>
                     </Bulletin>
@@ -102,6 +123,16 @@ function Introduction () {
                     </ShorButton>
                 </OverlayTrigger>
             </Shortcuts>
+
+            <Notice>
+                <h1>공지사항</h1>
+
+                <NoticeBox>
+                    <AnnounBox>
+                        <Announcement/>
+                    </AnnounBox>
+                </NoticeBox>
+            </Notice>
         </div>
     )
 };

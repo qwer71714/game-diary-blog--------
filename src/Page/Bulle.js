@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 const LatestPosts = styled.div`
   margin-left: auto;
-  font-size: 18px;
 `;
 
 const Post = styled.div`
@@ -75,10 +74,10 @@ function LatestPostsComponent() {
 
   return (
     <LatestPosts>
-      <b>최신글</b>
+      <h1>오늘의 블로그 최신소식</h1>
       <hr/>
       {slicedPosts.map((post) => (
-        <Post key={post.id} onClick={() => {console.log("헤이빈")}}>
+        <Post key={post.id} onClick={() => {console.log("적상적으로 작동이 됩니다.")}}>
           <PostTitle>
                 {post.title.length >= 4 
                 ?`${post.title.slice(0, 9)}...` 
