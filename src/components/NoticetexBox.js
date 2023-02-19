@@ -32,12 +32,24 @@ const AnnounDate = styled.span`
     font-weight: 400;
 `;
 
+const PatchNote = styled.div`
+    
+`;
+
 export const Announcement = () => {
     return(
         <Antox>
-           <AntoxNewBox><h2>신규기능 업데이트</h2><span>New</span></AntoxNewBox>
+           <AntoxNewBox>
+                <h2>신규기능 업데이트</h2><span>New</span>
+           </AntoxNewBox>
             <hr/>
-            <AnnounDate>2023-02-17</AnnounDate>
+            <AnnounDate>
+                2023-02-17
+            </AnnounDate>
+            <PatchNote>
+                
+            </PatchNote>
+            
         </Antox>
     )
 }
