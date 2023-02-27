@@ -1,3 +1,5 @@
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 const LatestPosts = styled.div`
@@ -27,50 +29,15 @@ const PostDate = styled.div`
 `;
 
 function LatestPostsComponent() {
-  const latestPosts = [
-    {
-      id: 1,
-      title: '에이펙스 레전드플레이 해보았습니다!',
-      date: '2023-02-10',
-    },
-    {
-      id: 2,
-      title: '핸들링? 이거뭐야? 완전대박~!',
-      date: '2023-02-09',
-    },
-    {
-      id: 3,
-      title: '커리수마스의 대모험 이야기',
-      date: '2023-02-08',
-    },
-    {
-      id: 4,
-      title: '오지마 오지마 물러나세요~!',
-      date: '2023-02-16',
-    },
-    {
-      id: 5,
-      title: '오지마 오지마 물러나세요~!',
-      date: '2023-02-08',
-    },
-    {
-      id: 6,
-      title: '오지마 오지마 물러나세요~!',
-      date: '2023-02-08',
-    },
-    {
-      id: 7,
-      title: '오지마 오지마 물러나세요~!',
-      date: '2023-02-08',
-    },
-    {
-      id: 8,
-      title: '오지마 오지마 물러나세요~!',
-      date: '2023-02-11',
-    },
-  ];
+  const [data, setData] = useState([]);
 
-  const slicedPosts = latestPosts.sort((a,b) => new Date(b.date) - new Date(a.date)).slice(0, 3);
+  useEffect(() => {
+    axios.get('http://localhost:3001/posts')
+      .then(res => setData(res.data))
+      .catch(err => console.error(err))
+  }, [])
+
+  const slicedPosts = data.sort((a,b) => new Date(b.date) - new Date(a.date)).slice(0, 3);
 
   return (
     <LatestPosts>
