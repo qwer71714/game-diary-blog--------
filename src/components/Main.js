@@ -1,8 +1,7 @@
 import '../App';
 
 import styled from 'styled-components';
-import LatestPostsComponent from '../Page/Bulle';
-
+import LatestPostsComponent from '../Page/BullePage';
 
 import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { TitleBox } from './Title-ps';

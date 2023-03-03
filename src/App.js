@@ -1,16 +1,22 @@
 import './App.css';
-import Introduction from './components/Main';
 import Heathers from './components/Navbar';
-import { Container } from 'react-bootstrap';
+import routes from './routes';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Container } from "react-bootstrap";
 
 function App() {
   return (
-    <div className='App'>
+      <Router>
       <Heathers/>
+      
       <Container>
-        <Introduction/>
+        <Switch>
+          {routes.map((route) => {
+            return <Route key={route.path} exact path={route.path} component={route.component} />;
+          })}
+        </Switch>
       </Container>
-    </div>
+    </Router>
   );
 }
 

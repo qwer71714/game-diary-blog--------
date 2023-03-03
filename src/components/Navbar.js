@@ -31,12 +31,12 @@ const Heathers = () => {
     return(
         <Heather bg="dark" variant="dark">
         <Container>
-          <Brand href="#home">Steam-Qr</Brand>
+          <Brand to="/">Steam-Qr</Brand>
           <Navdiv>
-            <Nav.Link href="#game-block">내가 하고있는 게임</Nav.Link>
-            <Nav.Link href="#gaming-blogs">게임 블로그</Nav.Link>
-            <Nav.Link href="#game-video">게임 동영상</Nav.Link>
-            <Nav.Link href="#menu">전체 메뉴</Nav.Link>
+            <Nav.Link href="">내가 하고있는 게임</Nav.Link>
+            <Nav.Link href="/gamebull-page">게임 블로그</Nav.Link>
+            <Nav.Link href="">게임 동영상</Nav.Link>
+            <Nav.Link href="">전체 메뉴</Nav.Link>
           </Navdiv>
         </Container>
       </Heather>
