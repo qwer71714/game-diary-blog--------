@@ -3,6 +3,7 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import { Container, Form } from 'react-bootstrap';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import styled from 'styled-components';
+import axios from 'axios';
 
 const Conter = styled(Container)`
   margin-top: 1vh;
@@ -45,7 +46,18 @@ function BlogForm() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // form submit 로직 추가
+
+  }
+
+  const onSubmit = () => {
+    const date = new Date().toISOString().slice(0, 10);
+    axios.post('http://localhost:3001/posts',{
+      title,
+      content,
+      date
+    }).then(res =>{
+      console.log(res);
+    })
   }
 
   return (
@@ -53,7 +65,9 @@ function BlogForm() {
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formBlogTitle">
           <Label>제목</Label>
-          <Titlefield type="text" placeholder="제목을 입력해주세요" value={title} onChange={handleTitleChange} />
+          <Titlefield type="text" placeholder="제목을 입력해주세요" value={title}
+            onChange={handleTitleChange}
+            />
         </Form.Group>
 
         <Form.Group controlId="formBlogContent">
@@ -65,7 +79,9 @@ function BlogForm() {
           />
         </Form.Group>
 
-        <Button variant="primary" type="submit">
+        <Button variant="primary" type="submit"
+          onClick={onSubmit}
+        >
           작성 완료
         </Button>
       </Form>
