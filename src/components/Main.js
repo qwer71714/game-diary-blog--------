@@ -108,7 +108,7 @@ function Introduction () {
                     placement='top'
                     overlay={<Top>심심한 글내용들이 잔~뜩!!</Top>}
                 >
-                    <ShorButton variant="dark">
+                    <ShorButton variant="dark" href="/gamebull-page">
                         게임 블로그
                     </ShorButton>
                 </OverlayTrigger>

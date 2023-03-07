@@ -1,8 +1,12 @@
 import Introduction from '../components/Main'
 
+import { Container } from 'react-bootstrap';
+
 function HomePage(){
     return(
-        <Introduction/>
+        <Container>
+            <Introduction/>
+        </Container>
     )
 }
 

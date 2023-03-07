@@ -1,4 +1,3 @@
-import '../App.css';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -31,7 +30,7 @@ const Heathers = () => {
     return(
         <Heather bg="dark" variant="dark">
         <Container>
-          <Brand to="/">Steam-Qr</Brand>
+          <Brand href="/">Steam-Qr</Brand>
           <Navdiv>
             <Nav.Link href="">내가 하고있는 게임</Nav.Link>
             <Nav.Link href="/gamebull-page">게임 블로그</Nav.Link>
