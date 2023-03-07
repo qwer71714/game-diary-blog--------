@@ -4,22 +4,23 @@ import { Container, Form } from 'react-bootstrap';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import styled from 'styled-components';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 const Conter = styled(Container)`
   margin-top: 1vh;
-`
+`;
 
 const Label = styled(Form.Label)`
   font-size: 24px;
   font-weight: 500;
   margin-top: 5vh;
   margin-bottom: 2vh;
-`
+`;
 
 const Titlefield = styled(Form.Control)`
   padding: 12px 0 12px 12px;
   font-size: 18px;
-`
+`;
 
 const Button = styled.button`
   margin-top: 5vh;
@@ -34,31 +35,33 @@ const Button = styled.button`
 function BlogForm() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const history = useHistory();
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
-  }
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+  };
 
   const handleEditorChange = (event, editor) => {
     const data = editor.getData();
     setContent(data);
-  }
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-  }
+  };
 
   const onSubmit = () => {
     const date = new Date().toISOString().slice(0, 10);
-    axios.post('http://localhost:3001/posts',{
+    
+    axios.post('http://localhost:3001/posts', {
       title,
       content,
       date
-    }).then(res =>{
+    }).then(res => {
       console.log(res);
-    })
-  }
+      history.push('/gamebull-page')
+    });
+  };
 
   return (
     <Conter>
@@ -67,7 +70,7 @@ function BlogForm() {
           <Label>제목</Label>
           <Titlefield type="text" placeholder="제목을 입력해주세요" value={title}
             onChange={handleTitleChange}
-            />
+          />
         </Form.Group>
 
         <Form.Group controlId="formBlogContent">
