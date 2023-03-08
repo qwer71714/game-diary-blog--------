@@ -1,10 +1,10 @@
+import { useHistory } from 'react-router-dom';
 import { useState } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
-import { Container, Form } from 'react-bootstrap';
+import { Container, Form, Modal } from 'react-bootstrap';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import styled from 'styled-components';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
 
 const Conter = styled(Container)`
   margin-top: 1vh;
@@ -32,10 +32,16 @@ const Button = styled.button`
   color: #fff;
 `;
 
+const ModalHeader = styled(Modal.Header)`
+  font-size: 24px;
+  border-bottom: none;
+`;
+
 function BlogForm() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const history = useHistory();
+  const [showModal, setShowModal] = useState(false);
+  /* const history = useHistory(); */
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
@@ -52,15 +58,19 @@ function BlogForm() {
 
   const onSubmit = () => {
     const date = new Date().toISOString().slice(0, 10);
-    
+
     axios.post('http://localhost:3001/posts', {
       title,
       content,
       date
     }).then(res => {
       console.log(res);
-      history.push('/gamebull-page')
+      /* history.push('/gamebull-page'); */
     });
+  };
+
+  const onSubmitModal = () => {
+    setShowModal(true);
   };
 
   return (
@@ -83,13 +93,26 @@ function BlogForm() {
         </Form.Group>
 
         <Button variant="primary" type="submit"
-          onClick={onSubmit}
+          onClick={onSubmitModal}
         >
-          작성 완료
+          작성완료
         </Button>
       </Form>
+
+      <Modal show={showModal} onHide={() => setShowModal(false)}>
+        <ModalHeader closeButton>
+          <Modal.Title>발행전 설정</Modal.Title>
+        </ModalHeader>
+        <Modal.Body>작성이 완료되었습니다!</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowModal(false)}>
+            닫기
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </Conter>
   );
 }
+
 
 export default BlogForm;
