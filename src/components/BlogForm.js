@@ -37,10 +37,55 @@ const ModalHeader = styled(Modal.Header)`
   border-bottom: none;
 `;
 
-function BlogForm() {
+const ModalBody = styled(Modal.Body)`
+  align-items: center;
+`;
+
+const Character = styled.div`
+  margin-top: 5px;
+`;
+
+const HiddenCheckbox = styled.input.attrs({ type: 'checkbox' })`
+  width: 18px;
+  height: 18px;
+  margin-right: 12px;
+`;
+
+const Goal = styled.div`
+  font-size: 14px;
+  color: #4B4B4B;
+  margin-top: 3vh;
+  display: flex;
+  align-items: center;
+`;
+
+const ModalFooter = styled(Modal.Footer)`
+  margin-top: 12vh;
+  padding-top: 3vh;
+  display: flex;
+  align-items: center;
+`;
+
+const Announcement = styled.div`
+  margin-right: auto;
+`;
+
+const Register = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #4B4B4B;
+`;
+
+const Buttons = styled(Button)`
+  margin-top: 0;
+`;
+
+function BlogForm(props) {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [showModal, setShowModal] = useState(false);
+  const [checked, setChecked] = useState(props.checked || false);
   /* const history = useHistory(); */
 
   const handleTitleChange = (event) => {
@@ -71,6 +116,12 @@ function BlogForm() {
 
   const onSubmitModal = () => {
     setShowModal(true);
+    console.log(showModal);
+  };
+
+  const handleCheckboxChange = (event) => {
+    setChecked(event.target.checked);
+    console.log(checked);
   };
 
   return (
@@ -95,24 +146,44 @@ function BlogForm() {
         <Button variant="primary" type="submit"
           onClick={onSubmitModal}
         >
-          작성완료
+          발행
         </Button>
+        <Modaltop showModal={showModal} setShowModal={setShowModal} checked={checked} handleCheckboxChange={handleCheckboxChange} />
       </Form>
-
-      <Modal show={showModal} onHide={() => setShowModal(false)}>
-        <ModalHeader closeButton>
-          <Modal.Title>발행전 설정</Modal.Title>
-        </ModalHeader>
-        <Modal.Body>작성이 완료되었습니다!</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowModal(false)}>
-            닫기
-          </Button>
-        </Modal.Footer>
-      </Modal>
     </Conter>
   );
 }
 
+export function Modaltop({ showModal, setShowModal, checked, handleCheckboxChange }) {
+  return (
+    <Modal show={showModal} onHide={() => setShowModal(false)}>
+      <ModalHeader closeButton>
+        <Modal.Title>설정</Modal.Title>
+      </ModalHeader>
 
+      <Character>
+        <ModalBody>
+          공개 설정
+
+          <Goal>
+            <HiddenCheckbox checked={checked} onChange={handleCheckboxChange} />
+            비공개
+          </Goal>
+        </ModalBody>
+      </Character>
+
+      <ModalFooter>
+        <Announcement>
+          <Register>
+            <HiddenCheckbox checked={checked} onChange={handleCheckboxChange} />
+            공지사항으로 등록
+          </Register>
+        </Announcement>
+        <Buttons variant="secondary" onClick={() => setShowModal(false)}>
+          발행
+        </Buttons>
+      </ModalFooter>
+    </Modal>
+  );
+}
 export default BlogForm;

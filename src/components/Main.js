@@ -12,14 +12,14 @@ const Bigtitle = `
     font-size: 24px;
     padding-bottom: 1.5vh;
     text-align: left;
-`
+`;
 
-const Texturepowder =`
+const Texturepowder = `
     margin-top: 15vh;
     text-align: left;
     font-weight: 400;
     line-height: 32px;
-`
+`;
 
 const Title = styled.section`
     ${Texturepowder}
@@ -52,7 +52,7 @@ const Shortcuts = styled.section`
     }
 
 `;
-  
+
 
 const ShorButton = styled(Button)`
     background-color: #000;
@@ -64,7 +64,7 @@ const ShorButton = styled(Button)`
         color: #000;
         border: 1px solid #000;
     }
-`
+`;
 
 const Top = styled(Tooltip)`
     margin-bottom: 3vh;
@@ -89,15 +89,15 @@ const AnnounBox = styled.div`
     padding: 3vh;
 `;
 
-function Introduction () {
-    return(
+function Introduction() {
+    return (
         <div className='App'>
             <Title>
-                
-            <TitleBox/>{/* 텍스터 자기소개서 글내용 TitleBox */}
+
+                <TitleBox />{/* 텍스터 자기소개서 글내용 TitleBox */}
                 <Latest>
                     <Bulletin>
-                        <LatestPostsComponent/>
+                        <LatestPostsComponent />
                     </Bulletin>
                 </Latest>
             </Title>
@@ -117,8 +117,8 @@ function Introduction () {
                     placement='top'
                     overlay={<Top>블로그 글형태에 편집된 동영상들이 잔~뜩!!</Top>}
                 >
-                <ShorButton variant="dark">
-                    게임 동영상
+                    <ShorButton variant="dark">
+                        게임 동영상
                     </ShorButton>
                 </OverlayTrigger>
             </Shortcuts>
@@ -127,12 +127,12 @@ function Introduction () {
                 <h1>공지사항</h1>
                 <NoticeBox>
                     <AnnounBox>
-                        <Announcement/>
+                        <Announcement />
                     </AnnounBox>
                 </NoticeBox>
             </Notice>
         </div>
-    )
+    );
 };
 
-export default Introduction
+export default Introduction;

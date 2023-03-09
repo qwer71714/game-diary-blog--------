@@ -1,9 +1,9 @@
-import styled from "styled-components"
+import styled from "styled-components";
 import myImage from '../img/imget-01.png';
-import Steam from '../img/steam.png'
-import Console from '../img/Console.png'
+import Steam from '../img/steam.png';
+import Console from '../img/Console.png';
 import { Container } from "react-bootstrap";
-import { Link } from 'react-router-dom'; 
+import { Link } from 'react-router-dom';
 
 const Separatorbar = styled.section`
     padding: 5vh;
@@ -12,7 +12,7 @@ const Separatorbar = styled.section`
     background-position: center center;
     background-color: rgba(0, 0, 0, 0.75);
     background-blend-mode: multiply;
-`
+`;
 
 const FunctionButton = styled.div`
     display: flex;
@@ -21,7 +21,7 @@ const FunctionButton = styled.div`
     button{
         margin-right: 24px;
     }
-`
+`;
 
 const OperationButton = styled.button`
     border: none;
@@ -55,11 +55,11 @@ const OperationButton = styled.button`
             background-color: #DBDBDB;
         }
     }
-`
+`;
 
 const Writing = styled.div`
     margin-left: auto;
-`
+`;
 
 const Reactionbutton = styled(Link)`
     text-decoration: none;
@@ -79,15 +79,15 @@ const Reactionbutton = styled(Link)`
             background-color: #DBDBDB;
         }
     }
-`
+`;
 
-function Gamebulle(){
-    return(
+function Gamebulle() {
+    return (
         <Separatorbar>
             <Container>
                 <FunctionButton>
-                    <OperationButton><div className="Steam"/>스팀</OperationButton>
-                    <OperationButton><div className="Console"/>콘솔</OperationButton>
+                    <OperationButton><div className="Steam" />스팀</OperationButton>
+                    <OperationButton><div className="Console" />콘솔</OperationButton>
 
                     <Writing>
                         <Reactionbutton to="/gamebull-page/create">글쓰기</Reactionbutton>
@@ -95,6 +95,6 @@ function Gamebulle(){
                 </FunctionButton>
             </Container>
         </Separatorbar>
-    )
+    );
 }
-export default Gamebulle
+export default Gamebulle;
