@@ -60,7 +60,7 @@ const Goal = styled.div`
 `;
 
 const ModalFooter = styled(Modal.Footer)`
-  margin-top: 12vh;
+  margin-top: 5vh;
   padding-top: 3vh;
   display: flex;
   align-items: center;
@@ -81,14 +81,14 @@ const Buttons = styled(Button)`
   margin-top: 0;
 `;
 
-function BlogForm(props) {
+function BlogForm() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [showModal, setShowModal] = useState(false);
   const history = useHistory();
 
-  const handleTitleChange = (event) => {
-    setTitle(event.target.value);
+  const handleTitleChange = (e) => {
+    setTitle(e.target.value);
   };
 
   const handleSubmit = (event) => {
@@ -205,4 +205,5 @@ export function Modaltop({ showModal, setShowModal, onSubmit }) {
     </Modal>
   );
 }
+
 export default BlogForm;
