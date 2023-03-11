@@ -91,11 +91,11 @@ function BlogForm() {
     setTitle(e.target.value);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
   };
 
-  const handleEditorChange = (event, editor) => {
+  const handleEditorChange = (e, editor) => {
     const data = editor.getData();
     setContent(data);
   };
@@ -163,15 +163,15 @@ export function Modaltop({ showModal, setShowModal, onSubmit }) {
   const [isPrivatresecret, setIsPrivatresecret] = useState(false);
   const [isNotice, setIsNotice] = useState(false);
 
-  const Secretcheckbox = (event) => {
-    setSecret(event.target.checked);
-    setIsPrivatresecret(event.target.checked);
+  const Secretcheckbox = (e) => {
+    setSecret(e.target.checked);
+    setIsPrivatresecret(e.target.checked);
     console.log(secretked);
   };
 
-  const Noticecheckbox = (event) => {
-    setNoticeked(event.target.checked);
-    setIsNotice(event.target.checked);
+  const Noticecheckbox = (e) => {
+    setNoticeked(e.target.checked);
+    setIsNotice(e.target.checked);
     console.log(noticeked);
   };
 
