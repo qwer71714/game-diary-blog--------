@@ -6,7 +6,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import styled from 'styled-components';
 import axios from 'axios';
 
-const Conter = styled(Container)`
+const Writing = styled(Container)`
   margin-top: 1vh;
 `;
 
@@ -73,7 +73,7 @@ const Announcement = styled.div`
 const Register = styled.div`
   display: flex;
   align-items: center;
-  font-size: 14px;
+ 
   color: #4B4B4B;
 `;
 
@@ -85,8 +85,7 @@ function BlogForm(props) {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [showModal, setShowModal] = useState(false);
-  const [checked, setChecked] = useState(props.checked || false);
-  /* const history = useHistory(); */
+  const history = useHistory();
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
@@ -101,31 +100,28 @@ function BlogForm(props) {
     setContent(data);
   };
 
-  const onSubmit = () => {
+  const onSubmit = (isPrivatresecret, isNotice) => {
     const date = new Date().toISOString().slice(0, 10);
 
     axios.post('http://localhost:3001/posts', {
       title,
       content,
-      date
+      date,
+      isPrivatresecret,
+      isNotice
     }).then(res => {
       console.log(res);
-      /* history.push('/gamebull-page'); */
+      history.push('/gamebull-page');
     });
   };
 
   const onSubmitModal = () => {
     setShowModal(true);
-    console.log(showModal);
-  };
-
-  const handleCheckboxChange = (event) => {
-    setChecked(event.target.checked);
-    console.log(checked);
+    console.log(setShowModal);
   };
 
   return (
-    <Conter>
+    <Writing>
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formBlogTitle">
           <Label>제목</Label>
@@ -148,25 +144,48 @@ function BlogForm(props) {
         >
           발행
         </Button>
-        <Modaltop showModal={showModal} setShowModal={setShowModal} checked={checked} handleCheckboxChange={handleCheckboxChange} />
+        <Modaltop showModal={showModal} setShowModal={setShowModal} onSubmit={onSubmit} />
       </Form>
-    </Conter>
+    </Writing>
   );
 }
 
-export function Modaltop({ showModal, setShowModal, checked, handleCheckboxChange }) {
+export function Modaltop({ showModal, setShowModal, onSubmit }) {
+
+  const handleClick = () => {
+    onSubmit(isPrivatresecret, isNotice);
+    setShowModal(false);
+  };
+
+  const [secretked, setSecret] = useState(false);
+  const [noticeked, setNoticeked] = useState(false);
+
+  const [isPrivatresecret, setIsPrivatresecret] = useState(false);
+  const [isNotice, setIsNotice] = useState(false);
+
+  const Secretcheckbox = (event) => {
+    setSecret(event.target.checked);
+    setIsPrivatresecret(event.target.checked);
+    console.log(secretked);
+  };
+
+  const Noticecheckbox = (event) => {
+    setNoticeked(event.target.checked);
+    setIsNotice(event.target.checked);
+    console.log(noticeked);
+  };
+
   return (
     <Modal show={showModal} onHide={() => setShowModal(false)}>
       <ModalHeader closeButton>
         <Modal.Title>설정</Modal.Title>
       </ModalHeader>
-
       <Character>
         <ModalBody>
           공개 설정
 
           <Goal>
-            <HiddenCheckbox checked={checked} onChange={handleCheckboxChange} />
+            <HiddenCheckbox secretked={secretked} onChange={Secretcheckbox} />
             비공개
           </Goal>
         </ModalBody>
@@ -175,11 +194,11 @@ export function Modaltop({ showModal, setShowModal, checked, handleCheckboxChang
       <ModalFooter>
         <Announcement>
           <Register>
-            <HiddenCheckbox checked={checked} onChange={handleCheckboxChange} />
+            <HiddenCheckbox noticeked={noticeked} onChange={Noticecheckbox} />
             공지사항으로 등록
           </Register>
         </Announcement>
-        <Buttons variant="secondary" onClick={() => setShowModal(false)}>
+        <Buttons variant="secondary" onClick={handleClick}>
           발행
         </Buttons>
       </ModalFooter>

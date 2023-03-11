@@ -25,16 +25,26 @@ function GameImg() {
             .catch(err => console.error(err));
     }, []);
 
+    const isPrivatresecret = (post) => {
+        return post.isPrivatresecret === true;
+    };
+
     return (
         <GameImgblock>
-            {data.map((post) => (
-                <Sio key={post.id}>
-                    <Ti>
-                        <h2>{Parser(post.title)}</h2>
-                        {Parser(post.content)}
-                    </Ti>
-                </Sio>
-            ))}
+            {data.map((post) => {
+                if (isPrivatresecret(post)) {
+                    return null;
+                } else {
+                    return (
+                        <Sio key={post.id}>
+                            <Ti>
+                                <h2>{Parser(post.title)}</h2>
+                                {Parser(post.content)}
+                            </Ti>
+                        </Sio>
+                    );
+                }
+            })}
         </GameImgblock>
     );
 }

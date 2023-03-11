@@ -1,4 +1,4 @@
-import Gamebulle from "../components/Gamebulle"
+import Gamebulle from "../components/GamebulleMain"
 import GameImg from "../components/GameImg"
 
 function GamebullePage(){
