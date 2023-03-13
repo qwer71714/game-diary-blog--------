@@ -62,7 +62,7 @@ export const Announcement = () => {
                 .map((post) => (
                     <Contentbox key={post.id}>
                         <AnncTitle>
-                            <h2 style={{ background: isNew(post)}}>
+                            <h2>
                                 {Parser(post.title)}
                                 {isNew(post) && <NowBox>New</NowBox>}
                             </h2>
