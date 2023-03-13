@@ -28,6 +28,7 @@ const PostDate = styled.div`
   font-size: 12px;
 `;
 
+
 function LatestPostsComponent() {
   const [data, setData] = useState([]);
 
@@ -39,6 +40,11 @@ function LatestPostsComponent() {
 
   const slicedPosts = data.sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 3);
 
+  function stripHtmlTags(html) {
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+    return doc.body.textContent || '';
+  }
+
   return (
     <LatestPosts>
       <h1>오늘의 블로그 최신소식</h1>
@@ -47,8 +53,8 @@ function LatestPostsComponent() {
         <Post key={post.id} onClick={() => { console.log("적상적으로 작동이 됩니다."); }}>
           <PostTitle>
             {post.title.length >= 4
-              ? `${post.title.slice(0, 9)}...`
-              : post.title}
+              ? `${stripHtmlTags(post.title.slice(0, 9))}...`
+              : stripHtmlTags(post.title)}
           </PostTitle>
           <PostDate>{post.date}</PostDate>
         </Post>

@@ -9,26 +9,37 @@ const Notice = styled.div`
 `;
 
 const Contentbox = styled.div`
-`;
-
-const AnncTitle = styled.div`
     margin-right: 5vh;
     padding: 2vh;
     border: 1px solid #000;
     border-radius: 15px;
 
-    h2{
-        display: flex;
-        align-items: center;
+    p{
+        margin-top: 1.2vh;
+        margin-bottom: 0;
     }
 `;
 
-const NowBox = styled.div`
+const AnncTitle = styled.div`
+    display: flex;
+    align-items: center;
+
+    h2{
+        font-weight: 500;
+        font-size: 20px;
+        font-weight: 600;
+        align-items: center;   
+        margin-bottom: 0px;
+    }
+`;
+
+
+const NewBox = styled.div`
     background: linear-gradient(45deg, #F50707, #93291E);
     margin-left: 12px;
-    padding: 6px 14px;
-    border-radius: 15px;
-    font-size: 2vh;
+    padding: 0.1px 16px;
+    border-radius: 120px;
+    font-size: 14px;
     text-align: center;
     color: #fff;
 `;
@@ -62,12 +73,14 @@ export const Announcement = () => {
                 .map((post) => (
                     <Contentbox key={post.id}>
                         <AnncTitle>
-                            <h2>
-                                {Parser(post.title)}
-                                {isNew(post) && <NowBox>New</NowBox>}
-                            </h2>
-                            {Parser(post.content)}
+                            {Parser(
+                                post.title.length >= 9
+                                    ? `${post.title.slice(0, 18)}...`
+                                    : post.title
+                            )}
+                            {isNew(post) && <NewBox>New</NewBox>}
                         </AnncTitle>
+                        {Parser(post.content)}
                     </Contentbox>
                 ))}
         </Notice>

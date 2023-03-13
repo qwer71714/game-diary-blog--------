@@ -103,8 +103,10 @@ function BlogForm() {
   const onSubmit = (isPrivatresecret, isNotice) => {
     const date = new Date().toISOString().slice(0, 10);
 
+    const newTitle = `<h2>${title}</h2>`;
+
     axios.post('http://localhost:3001/posts', {
-      title,
+      title: newTitle,
       content,
       date,
       isPrivatresecret,
@@ -125,7 +127,8 @@ function BlogForm() {
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formBlogTitle">
           <Label>제목</Label>
-          <Titlefield type="text" placeholder="제목을 입력해주세요" value={title}
+          <Titlefield type="text" placeholder="제목을 입력해주세요"
+            value={title}
             onChange={handleTitleChange}
           />
         </Form.Group>
