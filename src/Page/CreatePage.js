@@ -1,6 +1,6 @@
 import BlogForm from "../components/BlogForm";
 
-function CreatePage (){
+function CreatePage() {
   return (
     <div>
       <BlogForm />

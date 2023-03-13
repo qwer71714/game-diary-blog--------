@@ -81,7 +81,7 @@ const Reactionbutton = styled(Link)`
     }
 `;
 
-function Gamebulle() {
+function GamebulleAdmin() {
     return (
         <Separatorbar>
             <Container>
@@ -97,4 +97,4 @@ function Gamebulle() {
         </Separatorbar>
     );
 }
-export default Gamebulle;
+export default GamebulleAdmin;

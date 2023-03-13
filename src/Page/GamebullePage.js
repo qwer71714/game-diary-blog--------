@@ -1,13 +1,13 @@
-import Gamebulle from "../components/GamebulleMain"
-import GameImg from "../components/GameImg"
+import Gamebulle from "../components/GameNavBar";
+import GameImg from "../components/GameImgList";
 
-function GamebullePage(){
-    return(
+function GamebullePage() {
+    return (
         <>
-            <Gamebulle key="gamebulle"/>
-            <GameImg key="gameimg"/>
+            <Gamebulle key="gamebulle" />
+            <GameImg key="gameimg" />
         </>
-    )
+    );
 }
 
-export default GamebullePage
+export default GamebullePage;

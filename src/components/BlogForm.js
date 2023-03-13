@@ -111,7 +111,7 @@ function BlogForm() {
       isNotice
     }).then(res => {
       console.log(res);
-      history.push('/gamebull-page');
+      history.push('/gamebull-page/admin');
     });
   };
 

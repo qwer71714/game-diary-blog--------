@@ -78,17 +78,6 @@ const Notice = styled.section`
     }    
 `;
 
-const NoticeBox = styled.div`
-    display: flex;
-`;
-
-const AnnounBox = styled.div`
-    border: 1px solid #000;
-    border-radius: 15px;
-    margin: 2vh 10vh 0 0;
-    padding: 3vh;
-`;
-
 function Introduction() {
     return (
         <div className='App'>
@@ -125,11 +114,7 @@ function Introduction() {
 
             <Notice>
                 <h1>공지사항</h1>
-                <NoticeBox>
-                    <AnnounBox>
-                        <Announcement />
-                    </AnnounBox>
-                </NoticeBox>
+                <Announcement />
             </Notice>
         </div>
     );
