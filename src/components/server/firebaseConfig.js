@@ -1,6 +1,30 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+
+export async function uploadImage(file) {
+  const storage = getStorage();
+  const storageRef = ref(storage, 'images/' + file.name);
+  const uploadTask = uploadBytesResumable(storageRef, file);
+
+  return new Promise((resolve, reject) => {
+    uploadTask.on(
+      'state_changed',
+      (snapshot) => {
+      },
+      (error) => {
+        console.log(error);
+        reject(error);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          resolve(downloadURL);
+        });
+      }
+    );
+  });
+}
 
 const firebaseConfig = {
   apiKey: "AIzaSyA6jAWN5SEq0Y8u5pmwflRC8NX3EYyQvwQ",
@@ -14,3 +38,5 @@ const firebaseConfig = {
 
 export const app = initializeApp(firebaseConfig);
 export const analytics = getAnalytics(app);
+
+export default firebaseConfig;

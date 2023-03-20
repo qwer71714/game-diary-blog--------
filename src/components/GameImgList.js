@@ -38,8 +38,7 @@ function GameImg() {
                     return (
                         <Sio key={post.id}>
                             <Ti>
-                                {Parser(post.title)}
-                                {Parser(post.content)}
+                                {Parser(post.titleImage)}
                             </Ti>
                         </Sio>
                     );

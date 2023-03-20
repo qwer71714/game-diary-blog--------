@@ -2,7 +2,7 @@ import { useHistory } from 'react-router-dom';
 import { useState } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import { Container, Form, Modal } from 'react-bootstrap';
-import { uploadImage } from './firebaseConfig';
+import { uploadImage } from './server/firebaseConfig.js';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import styled from 'styled-components';
 import axios from 'axios';
@@ -113,6 +113,7 @@ function BlogForm() {
     const date = new Date().toISOString().slice(0, 10);
 
     axios.post('http://localhost:3001/posts', {
+      titleImage: titleImage,
       title,
       content,
       date,
@@ -124,13 +125,15 @@ function BlogForm() {
     });
   };
 
+  // 이미지 업로드 로직
+  const [titleImage, setTitleImage] = useState('');
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
 
     const imageURL = await uploadImage(file);
     const imageTag = `<img src="${imageURL}" alt="${file.name}" />`;
-    setContent(content + imageTag);
+    setTitleImage(imageTag);
   };
 
   const [showModal, setShowModal] = useState(false);
@@ -142,14 +145,10 @@ function BlogForm() {
   return (
     <Writing>
       <Form onSubmit={handleSubmit}>
-
-        {/* 이미지 업로드 input 추가 */}
         <Form.Group controlId="formBlogImage">
           <Label>이미지 업로드</Label>
           <Form.Control type="file" onChange={handleImageUpload} />
         </Form.Group>
-
-        {/* ... 기존 코드 ... */}
       </Form>
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formBlogTitle">
