@@ -2,6 +2,7 @@ import { useHistory } from 'react-router-dom';
 import { useState } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import { Container, Form, Modal } from 'react-bootstrap';
+import { uploadImage } from './firebaseConfig';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import styled from 'styled-components';
 import axios from 'axios';
@@ -82,31 +83,37 @@ const Buttons = styled(Button)`
 `;
 
 function BlogForm() {
+
   const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
-  const [showModal, setShowModal] = useState(false);
-  const history = useHistory();
+  const [isTitleEmpty, setIsTitleEmpty] = useState(false);
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
+    if (e.target.value.trim() === "") {
+      setIsTitleEmpty(true);
+    } else {
+      setIsTitleEmpty(false);
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
   };
 
+  const [content, setContent] = useState('');
+
   const handleEditorChange = (e, editor) => {
     const data = editor.getData();
     setContent(data);
   };
 
+  const history = useHistory();
+
   const onSubmit = (isPrivatresecret, isNotice) => {
     const date = new Date().toISOString().slice(0, 10);
 
-    const newTitle = `<h2>${title}</h2>`;
-
     axios.post('http://localhost:3001/posts', {
-      title: newTitle,
+      title,
       content,
       date,
       isPrivatresecret,
@@ -117,20 +124,46 @@ function BlogForm() {
     });
   };
 
+  const handleImageUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const imageURL = await uploadImage(file);
+    const imageTag = `<img src="${imageURL}" alt="${file.name}" />`;
+    setContent(content + imageTag);
+  };
+
+  const [showModal, setShowModal] = useState(false);
+
   const onSubmitModal = () => {
     setShowModal(true);
-    console.log(setShowModal);
   };
 
   return (
     <Writing>
       <Form onSubmit={handleSubmit}>
+
+        {/* 이미지 업로드 input 추가 */}
+        <Form.Group controlId="formBlogImage">
+          <Label>이미지 업로드</Label>
+          <Form.Control type="file" onChange={handleImageUpload} />
+        </Form.Group>
+
+        {/* ... 기존 코드 ... */}
+      </Form>
+      <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formBlogTitle">
           <Label>제목</Label>
-          <Titlefield type="text" placeholder="제목을 입력해주세요"
+          <Titlefield
+            type="text"
+            placeholder="제목을 입력해주세요"
             value={title}
             onChange={handleTitleChange}
+            isInvalid={isTitleEmpty}
           />
+          <Form.Control.Feedback type="invalid">
+            최소 1글자 이상 제목을 입력해주세요.
+          </Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group controlId="formBlogContent">
@@ -144,16 +177,18 @@ function BlogForm() {
 
         <Button variant="primary" type="submit"
           onClick={onSubmitModal}
+          disabled={title.trim().length < 1}
+          style={{ backgroundColor: title.trim().length < 1 ? '#BDBDBD' : '#2A66F1' }}
         >
           발행
         </Button>
-        <Modaltop showModal={showModal} setShowModal={setShowModal} onSubmit={onSubmit} />
+        <PublishModal showModal={showModal} setShowModal={setShowModal} onSubmit={onSubmit} />
       </Form>
     </Writing>
   );
 }
 
-export function Modaltop({ showModal, setShowModal, onSubmit }) {
+export function PublishModal({ showModal, setShowModal, onSubmit }) {
 
   const handleClick = () => {
     onSubmit(isPrivatresecret, isNotice);

@@ -1,18 +1,27 @@
 import { useEffect, useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination } from "swiper";
 import axios from 'axios';
 import styled from "styled-components";
 import Parser from 'html-react-parser';
+import "swiper/css";
+import "swiper/css/navigation";
+import "./styles.css";
+
+const MySwiperSlide = styled(SwiperSlide)`
+    margin-right: auto;
+    justify-content: left;
+`;
 
 const Notice = styled.div`
-    display: flex;
     margin-right: 2vh;
 `;
 
 const Contentbox = styled.div`
-    margin-right: 5vh;
     padding: 2vh;
     border: 1px solid #000;
     border-radius: 15px;
+    text-align: left;
 
     p{
         margin-top: 1.2vh;
@@ -28,8 +37,19 @@ const AnncTitle = styled.div`
         font-weight: 500;
         font-size: 20px;
         font-weight: 600;
+        width: 100%;
         align-items: center;   
         margin-bottom: 0px;
+    }
+`;
+
+const Creationdate = styled.div`
+    font-size: 14px;
+    margin-top: 1vh;
+
+    span{
+        font-weight: 500;
+        margin-right: 5px;
     }
 `;
 
@@ -53,12 +73,8 @@ export const Announcement = () => {
             .catch(err => console.error(err));
     }, []);
 
-    const isNotice = (post) => {
-        return post.isNotice === false;
-    };
-
-    const isPrivatresecret = (post) => {
-        return post.isPrivatresecret === true;
+    const filterPosts = (post) => {
+        return post.isNotice && !post.isPrivatresecret;
     };
 
     const isNew = (post) => {
@@ -67,22 +83,35 @@ export const Announcement = () => {
     };
 
     return (
-        <Notice>
-            {data
-                .filter(post => !isNotice(post) && !isPrivatresecret(post))
-                .map((post) => (
-                    <Contentbox key={post.id}>
-                        <AnncTitle>
-                            {Parser(
-                                post.title.length >= 9
-                                    ? `${post.title.slice(0, 18)}...`
-                                    : post.title
-                            )}
-                            {isNew(post) && <NewBox>New</NewBox>}
-                        </AnncTitle>
-                        {Parser(post.content)}
-                    </Contentbox>
-                ))}
-        </Notice>
+        <Swiper
+            slidesPerView={3}
+            spaceBetween={1}
+            pagination={{ clickable: true }}
+            modules={[Pagination]}
+            className="mySwiper">
+            <Notice>
+                {data
+                    .filter(filterPosts)
+                    .map((post) => (
+                        <MySwiperSlide key={post.id}>
+                            <Contentbox>
+                                <AnncTitle>
+                                    {Parser(
+                                        post.title.length >= 18
+                                            ? `${post.title.slice(0, 18)}...`
+                                            : post.title
+                                    )}
+                                    {isNew(post) && <NewBox>New</NewBox>}
+                                </AnncTitle>
+                                <Creationdate>
+                                    <span>작성 날짜 :</span> {Parser(post.date)}
+                                </Creationdate>
+                                <hr />
+                                {Parser(post.content)}
+                            </Contentbox>
+                        </MySwiperSlide>
+                    ))}
+            </Notice>
+        </Swiper>
     );
 };

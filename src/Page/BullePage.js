@@ -38,27 +38,37 @@ function LatestPostsComponent() {
       .catch(err => console.error(err));
   }, []);
 
-  const slicedPosts = data.sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 3);
+  const isPrivatresecret = (post) => {
+    return post.isPrivatresecret === true;
+  };
+
+  const filteredPosts = data
+    .sort((a, b) => new Date(b.date) - new Date(a.date))
+    .filter((post) => !isPrivatresecret(post))
+    .slice(0, 3);
 
   function stripHtmlTags(html) {
     const doc = new DOMParser().parseFromString(html, 'text/html');
     return doc.body.textContent || '';
   }
 
+
+
   return (
     <LatestPosts>
       <h1>오늘의 블로그 최신소식</h1>
       <hr />
-      {slicedPosts.map((post) => (
-        <Post key={post.id} onClick={() => { console.log("적상적으로 작동이 됩니다."); }}>
-          <PostTitle>
-            {post.title.length >= 4
-              ? `${stripHtmlTags(post.title.slice(0, 9))}...`
-              : stripHtmlTags(post.title)}
-          </PostTitle>
-          <PostDate>{post.date}</PostDate>
-        </Post>
-      ))}
+      {filteredPosts
+        .map((post) => (
+          <Post key={post.id} onClick={() => {console.log("적상적으로 작동이 됩니다."); }}>
+            <PostTitle>
+              {post.title.length >= 3
+                ? `${stripHtmlTags(post.title.slice(0, 12))}...`
+                : stripHtmlTags(post.title)}
+            </PostTitle>
+            <PostDate>{post.date}</PostDate>
+          </Post>
+        ))}
     </LatestPosts>
   );
 }

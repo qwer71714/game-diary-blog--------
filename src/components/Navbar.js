@@ -43,4 +43,3 @@ const Heathers = () => {
 };
 
 export default Heathers
-
