@@ -13,7 +13,7 @@ const routes = [
     component: GamebullePage
   },
   {
-    path: '/gamebull-page/create',
+    path: '/gamebull-page/admin/create',
     component: CreatePage
   },
   {

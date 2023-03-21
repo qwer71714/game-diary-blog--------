@@ -56,13 +56,17 @@ const OperationButton = styled.button`
     }
 `;
 
-function Gamebulle() {
+function Gamebulle({ isAdmin, setSelectedPlatform }) {
+    const handlePlatformSelect = (platform) => {
+        setSelectedPlatform(platform);
+    };
     return (
         <Separatorbar>
             <Container>
                 <FunctionButton>
-                    <OperationButton><div className="Steam" />스팀</OperationButton>
-                    <OperationButton><div className="Console" />콘솔</OperationButton>
+                    <OperationButton onClick={() => handlePlatformSelect('Steam')}><div className="Steam" />스팀</OperationButton>
+                    <OperationButton onClick={() => handlePlatformSelect('Console')}><div className="Console" />콘솔</OperationButton>
+                    <OperationButton onClick={() => handlePlatformSelect('all')}><div className="all" />전체</OperationButton>
                 </FunctionButton>
             </Container>
         </Separatorbar>

@@ -1,13 +1,16 @@
-import Gamebulle from "../components/GameNavBar";
-import GameImg from "../components/GameImgList";
+import React, { useState } from 'react';
+import GameImg from '../components/GameImgList';
+import Gamebulle from '../components/GameNavBar';
 
-function GamebullePage() {
+const GamebullePage = () => {
+    const [selectedPlatform, setSelectedPlatform] = useState(null);
+
     return (
         <>
-            <Gamebulle key="gamebulle" />
-            <GameImg key="gameimg" />
+            <Gamebulle isAdmin={true} selectedPlatform={selectedPlatform} setSelectedPlatform={setSelectedPlatform} />
+            <GameImg isAdmin={true} selectedPlatform={selectedPlatform} />
         </>
     );
-}
+};
 
 export default GamebullePage;

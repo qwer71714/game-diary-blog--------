@@ -81,20 +81,26 @@ const Reactionbutton = styled(Link)`
     }
 `;
 
-function GamebulleAdmin() {
+function GamebulleAdmin({ isAdmin, setSelectedPlatform }) {
+    const handlePlatformSelect = (platform) => {
+        setSelectedPlatform(platform);
+    };
+    
     return (
         <Separatorbar>
             <Container>
                 <FunctionButton>
-                    <OperationButton><div className="Steam" />스팀</OperationButton>
-                    <OperationButton><div className="Console" />콘솔</OperationButton>
-
-                    <Writing>
-                        <Reactionbutton to="/gamebull-page/create">글쓰기</Reactionbutton>
-                    </Writing>
+                    <OperationButton onClick={() => handlePlatformSelect('Steam')}><div className="Steam" />스팀</OperationButton>
+                    <OperationButton onClick={() => handlePlatformSelect('Console')}><div className="Console" />콘솔</OperationButton>
+                    <OperationButton onClick={() => handlePlatformSelect('all')}><div className="all" />전체</OperationButton>
+                    {isAdmin && (
+                        <Writing>
+                            <Reactionbutton to="admin/create">글쓰기</Reactionbutton>
+                        </Writing>
+                    )}
                 </FunctionButton>
             </Container>
         </Separatorbar>
     );
-}
+};
 export default GamebulleAdmin;

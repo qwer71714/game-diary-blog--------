@@ -1,5 +1,5 @@
 import { useHistory } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import { Container, Form, Modal } from 'react-bootstrap';
 import { uploadImage } from './server/firebaseConfig.js';
@@ -39,6 +39,10 @@ const ModalHeader = styled(Modal.Header)`
 `;
 
 const ModalBody = styled(Modal.Body)`
+  align-items: center;
+`;
+
+const ModalBodygame = styled(Modal.Body)`
   align-items: center;
 `;
 
@@ -88,12 +92,9 @@ function BlogForm() {
   const [isTitleEmpty, setIsTitleEmpty] = useState(false);
 
   const handleTitleChange = (e) => {
-    setTitle(e.target.value);
-    if (e.target.value.trim() === "") {
-      setIsTitleEmpty(true);
-    } else {
-      setIsTitleEmpty(false);
-    }
+    const titleValue = e.target.value;
+    setTitle(titleValue);
+    setIsTitleEmpty(titleValue.trim() === "");
   };
 
   const handleSubmit = (e) => {
@@ -109,7 +110,8 @@ function BlogForm() {
 
   const history = useHistory();
 
-  const onSubmit = (isPrivatresecret, isNotice) => {
+  // Node.js axios post 요청 로직
+  const onSubmit = (isPrivatresecret, isNotice, Steam, Console) => {
     const date = new Date().toISOString().slice(0, 10);
 
     axios.post('http://localhost:3001/posts', {
@@ -118,7 +120,9 @@ function BlogForm() {
       content,
       date,
       isPrivatresecret,
-      isNotice
+      isNotice,
+      Steam,
+      Console
     }).then(res => {
       console.log(res);
       history.push('/gamebull-page/admin');
@@ -127,14 +131,19 @@ function BlogForm() {
 
   // 이미지 업로드 로직
   const [titleImage, setTitleImage] = useState('');
-  const handleImageUpload = async (e) => {
+
+  const handleImageUpload = useCallback(async (e) => {
     const file = e.target.files[0];
     if (!file) return;
 
-    const imageURL = await uploadImage(file);
-    const imageTag = `<img src="${imageURL}" alt="${file.name}" />`;
-    setTitleImage(imageTag);
-  };
+    // 이미지를 uploadImage 함수를 통해 업로드하고, 업로드된 이미지의 URL을 가져오는 로직
+    try {
+      const imageURL = await uploadImage(file);
+      setTitleImage(`<img src="${imageURL}" alt="${file.name}" />`);
+    } catch (error) {
+      console.log('Error uploading image:', error);
+    }
+  }, []);
 
   const [showModal, setShowModal] = useState(false);
 
@@ -190,26 +199,38 @@ function BlogForm() {
 export function PublishModal({ showModal, setShowModal, onSubmit }) {
 
   const handleClick = () => {
-    onSubmit(isPrivatresecret, isNotice);
+    onSubmit(isPrivatresecret, isNotice, Steam, Console);
     setShowModal(false);
   };
-
-  const [secretked, setSecret] = useState(false);
-  const [noticeked, setNoticeked] = useState(false);
 
   const [isPrivatresecret, setIsPrivatresecret] = useState(false);
   const [isNotice, setIsNotice] = useState(false);
 
+  const [secretked, setSecret] = useState(false);
   const Secretcheckbox = (e) => {
     setSecret(e.target.checked);
     setIsPrivatresecret(e.target.checked);
-    console.log(secretked);
   };
 
+  const [noticeked, setNoticeked] = useState(false);
   const Noticecheckbox = (e) => {
     setNoticeked(e.target.checked);
     setIsNotice(e.target.checked);
-    console.log(noticeked);
+  };
+
+  const [disableSteam, setDisableSteam] = useState(false);
+  const [disableConsole, setDisableConsole] = useState(false);
+
+  const [Steam, setSteam] = useState(false);
+  const Gamecheckbox = (e) => {
+    setSteam(e.target.checked);
+    setDisableConsole(e.target.checked);
+  };
+
+  const [Console, setConsole] = useState(false);
+  const Consolecheckbox = (e) => {
+    setConsole(e.target.checked);
+    setDisableSteam(e.target.checked);
   };
 
   return (
@@ -222,16 +243,49 @@ export function PublishModal({ showModal, setShowModal, onSubmit }) {
           공개 설정
 
           <Goal>
-            <HiddenCheckbox secretked={secretked} onChange={Secretcheckbox} />
+            <HiddenCheckbox
+              secretked={secretked}
+              onChange={Secretcheckbox}
+            />
+
             비공개
           </Goal>
         </ModalBody>
       </Character>
 
+      <Character>
+        <ModalBodygame>
+          게임 설정
+
+          <Goal>
+            <HiddenCheckbox
+              secretked={Steam}
+              onChange={Gamecheckbox}
+              disabled={disableSteam}
+            />
+
+            스팀
+          </Goal>
+          <Goal>
+            <HiddenCheckbox
+              secretked={Console}
+              onChange={Consolecheckbox}
+              disabled={disableConsole}
+            />
+
+            콘솔
+          </Goal>
+        </ModalBodygame>
+      </Character>
+
       <ModalFooter>
         <Announcement>
           <Register>
-            <HiddenCheckbox noticeked={noticeked} onChange={Noticecheckbox} />
+            <HiddenCheckbox
+              noticeked={noticeked}
+              onChange={Noticecheckbox}
+            />
+
             공지사항으로 등록
           </Register>
         </Announcement>
