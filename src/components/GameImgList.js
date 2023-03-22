@@ -1,9 +1,8 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { Container } from "react-bootstrap";
 import styled from "styled-components";
 import axios from 'axios';
 import Parser from 'html-react-parser';
-
 
 const GameImgblock = styled.section`
     margin: auto;
@@ -32,40 +31,40 @@ function GameImg({ selectedPlatform }) {
             .catch(err => console.error(err));
     }, []);
 
-    const isPrivatresecret = (post) => {
-        return post.isPrivatresecret === true;
-    };
+    const isPrivatresecret = (post) => post.isPrivatresecret === true;
 
     const isPlatformMatch = (post) => {
         if (selectedPlatform === 'Steam') {
             return post.Steam === true;
-        }
-        if (selectedPlatform === 'Console') {
+        } else if (selectedPlatform === 'Console') {
             return post.Console === true;
         }
         return true;
     };
 
-    const filteredPosts = data
-        .filter(post => !isPrivatresecret(post) && isPlatformMatch(post))
-        .sort((a, b) => new Date(b.date) - new Date(a.date));
+    const filteredPosts = useMemo(() => (
+        data.filter(post => !isPrivatresecret(post) && isPlatformMatch(post))
+            .sort((a, b) => new Date(b.date) - new Date(a.date))
+    ), [data, selectedPlatform]);
+
+    const ImageComponent = useMemo(() => React.memo(({ titleImage }) => (
+        <Image>
+            {Parser(titleImage)}
+        </Image>
+    )), []);
+
+    if (!data.length) {
+        return <p>Loading...</p>;
+    }
 
     return (
         <Container>
             <GameImgblock>
-                {filteredPosts.map((post) => {
-                    if (isPrivatresecret(post)) {
-                        return null;
-                    } else {
-                        return (
-                            <Sio key={post.id}>
-                                <Image>
-                                    {Parser(post.titleImage)}
-                                </Image>
-                            </Sio>
-                        );
-                    }
-                })}
+                {filteredPosts.map((post) => (
+                    <Sio key={post.id}>
+                        {!isPrivatresecret(post) && <ImageComponent titleImage={post.titleImage} />}
+                    </Sio>
+                ))}
             </GameImgblock>
         </Container>
     );
