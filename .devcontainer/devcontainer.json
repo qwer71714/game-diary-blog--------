@@ -7,7 +7,8 @@
 	"customizations": {
 		"vscode": {
 			"extensions": [
-				"jonkwheeler.styled-components-snippets"
+				"jonkwheeler.styled-components-snippets",
+				"styled-components.vscode-styled-components"
 			]
 		}
 	}

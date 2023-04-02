@@ -1,70 +1,15 @@
 {
   "posts": [
     {
-      "titleImage": "<img src=\"https://firebasestorage.googleapis.com/v0/b/gamediary-blog.appspot.com/o/images%2F%EB%A7%88%EC%95%BD%EB%BD%95.jpg?alt=media&token=3ec9f657-09d0-4063-8ac9-30092bf65e63\" alt=\"마약뽕.jpg\" />",
-      "title": "z",
-      "content": "<p>z</p>",
-      "date": "2023-03-21",
+      "titleImage": "<img src=\"https://firebasestorage.googleapis.com/v0/b/gamediary-blog.appspot.com/o/images%2F%EC%9D%B4%EC%B1%85%EC%9D%84%20%EB%A8%B9%EC%96%B4%EB%9D%BC.jpg?alt=media&token=f5903709-19b9-4c30-ad35-32e7d1a7ea08\" alt=\"이책을 먹어라.jpg\" />",
+      "title": "마인크래프트 모드 264화 생존 일기 - 더보이즈-",
+      "content": "<p>테스트 버전 입니다!</p>",
+      "date": "2023-04-01",
       "isPrivatresecret": false,
       "isNotice": false,
       "Steam": true,
       "Console": false,
       "id": 1
-    },
-    {
-      "titleImage": "<img src=\"https://firebasestorage.googleapis.com/v0/b/gamediary-blog.appspot.com/o/images%2F%EB%A7%90%ED%95%98%EA%B8%B0%EC%A0%84%EC%97%90%20%EA%B5%AC%EA%B8%80%EB%A7%81%20%ED%96%88%EB%82%98%EC%9A%94.jpg?alt=media&token=75c32c8e-6687-4b92-a44d-abb083f0e825\" alt=\"말하기전에 구글링 했나요.jpg\" />",
-      "title": "a",
-      "content": "<p>a</p>",
-      "date": "2023-03-21",
-      "isPrivatresecret": false,
-      "isNotice": false,
-      "Steam": false,
-      "Console": true,
-      "id": 2
-    },
-    {
-      "titleImage": "<img src=\"https://firebasestorage.googleapis.com/v0/b/gamediary-blog.appspot.com/o/images%2F%EC%8B%AD%EC%96%B5.jpg?alt=media&token=83ac769d-7a36-44ec-b2a5-52a39c37ef48\" alt=\"십억.jpg\" />",
-      "title": "zz",
-      "content": "<p>zz</p>",
-      "date": "2023-03-21",
-      "isPrivatresecret": true,
-      "isNotice": false,
-      "Steam": true,
-      "Console": false,
-      "id": 3
-    },
-    {
-      "titleImage": "<img src=\"https://firebasestorage.googleapis.com/v0/b/gamediary-blog.appspot.com/o/images%2F%EB%AC%BC%EB%A5%98%20%E3%85%8B%E3%85%8B.png?alt=media&token=73bdb0c4-ac87-4675-8e0e-ac979985382c\" alt=\"물류 ㅋㅋ.png\" />",
-      "title": "zz",
-      "content": "<p>z</p>",
-      "date": "2023-03-21",
-      "isPrivatresecret": false,
-      "isNotice": false,
-      "Steam": true,
-      "Console": false,
-      "id": 4
-    },
-    {
-      "titleImage": "<img src=\"https://firebasestorage.googleapis.com/v0/b/gamediary-blog.appspot.com/o/images%2F%EC%A7%84%EC%A7%9C.jpg?alt=media&token=16c67e2c-6514-409b-8c8c-b3bc0ffb24f8\" alt=\"진짜.jpg\" />",
-      "title": "z",
-      "content": "<p>z</p>",
-      "date": "2023-03-21",
-      "isPrivatresecret": true,
-      "isNotice": false,
-      "Steam": true,
-      "Console": false,
-      "id": 5
-    },
-    {
-      "titleImage": "<img src=\"https://firebasestorage.googleapis.com/v0/b/gamediary-blog.appspot.com/o/images%2F%EB%AC%BC%EB%A5%98%20%E3%85%8B%E3%85%8B.png?alt=media&token=7c3f2646-61fb-4578-9f8b-f09ce23cbc06\" alt=\"물류 ㅋㅋ.png\" />",
-      "title": "zzzz",
-      "content": "<p>zzz</p>",
-      "date": "2023-03-21",
-      "isPrivatresecret": false,
-      "isNotice": true,
-      "Steam": true,
-      "Console": false,
-      "id": 6
     }
   ]
 }
