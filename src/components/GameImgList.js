@@ -1,5 +1,5 @@
 import { useEffect, useState, useMemo } from "react";
-import { useHistory } from "react-router";
+import { useHistory, useLocation } from "react-router";
 import { Container } from "react-bootstrap";
 import styled from "styled-components";
 import axios from 'axios';
@@ -13,7 +13,7 @@ const Gamewritingblock = styled.section`
     grid-gap: 11.54vh;
 `;
 
-const Sio = styled.div`
+const Card = styled.div`
     margin-top: 3vh;
     padding: 4vh;
     box-shadow: 0 0 10px 0 rgba(0, 10, 0, 0.2);
@@ -83,7 +83,7 @@ const Timedate = styled.div`
     color: #999999;
 `;
 
-function isPlatformMatch(post, selectedPlatform) {
+function isPlatformMatch( post, selectedPlatform ) {
     if (selectedPlatform === 'Steam') {
         return post.Steam || post.isNotice;
     }
@@ -96,6 +96,8 @@ function isPlatformMatch(post, selectedPlatform) {
 function GameImg({ selectedPlatform }) {
     const [data, setData] = useState([]);
     const history = useHistory();
+    const location = useLocation();
+    const isAdmin = location.pathname.startsWith("/gamebull-page/admin");
 
     useEffect(() => {
         axios.get('http://localhost:3001/posts')
@@ -103,21 +105,21 @@ function GameImg({ selectedPlatform }) {
             .catch(console.error);
     }, [selectedPlatform]);
 
-    const filteredPosts = useMemo(() => {
-        return data
-            .filter(post => !post.isPrivatresecret && isPlatformMatch(post, selectedPlatform))
-            .sort((a, b) => new Date(b.date) - new Date(a.date));
-    }, [data, selectedPlatform]);
+    const filteredPosts = useMemo(() => data
+        .filter(post => !post.isPrivatresecret && isPlatformMatch(post, selectedPlatform))
+        .sort((a, b) => new Date(b.date) - new Date(a.date)),
+        [data, selectedPlatform]
+    );
 
-    const Detailedpage = ( post ) => {
-        history.push(`/gamebull-page/${post.id}`);
+    const Detailedpage = (post) => {
+        history.push(`/gamebull-page/${isAdmin ? 'admin/' : ''}${post.id}`);
     };
 
     return (
         <Container>
             <Gamewritingblock>
                 {filteredPosts.map((post) => (
-                    <Sio key={post.id}
+                    <Card key={post.id}
                         onClick={() => Detailedpage(post)}>
                         <TitleImage>{Parser(post.titleImage)}</TitleImage>
                         <PlatformTag>
@@ -131,8 +133,8 @@ function GameImg({ selectedPlatform }) {
                                 : post.title
                             )}
                         </Title>
-                        <Timedate>{Parser(post.date)}</Timedate>
-                    </Sio>
+                        <Timedate>{post.date}</Timedate>
+                    </Card>
                 ))}
             </Gamewritingblock>
         </Container>

@@ -83,9 +83,9 @@ const Reactionbutton = styled(Link)`
 
 function GamebulleAdmin({ isAdmin, setSelectedPlatform }) {
     const handlePlatformSelect = (platform) => {
-        setSelectedPlatform(platform);
+        setSelectedPlatform(platform === 'all' ? null : platform);
     };
-    
+
     return (
         <Separatorbar>
             <Container>

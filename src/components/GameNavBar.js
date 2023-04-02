@@ -56,7 +56,7 @@ const OperationButton = styled.button`
     }
 `;
 
-function Gamebulle({ isAdmin, setSelectedPlatform }) {
+function Gamebulle({ setSelectedPlatform }) {
     const handlePlatformSelect = (platform) => {
         setSelectedPlatform(platform);
     };

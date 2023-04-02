@@ -14,17 +14,21 @@ const routes = [
     component: GamebullePage
   },
   {
-    path: '/gamebull-page/:id',
-    component: DetailPage
-  },
-  {
     path: '/gamebull-page/admin/create',
     component: CreatePage
   },
   {
     path: '/gamebull-page/admin',
     component: AdminPage
-  }
+  },
+  {
+    path: '/gamebull-page/:id',
+    component: DetailPage
+  },
+  {
+    path: '/gamebull-page/admin/:id',
+    component: DetailPage
+  },
 ];
 
 export default routes;

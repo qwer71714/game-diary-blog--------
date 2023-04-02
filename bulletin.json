@@ -10,6 +10,17 @@
       "Steam": true,
       "Console": false,
       "id": 1
+    },
+    {
+      "titleImage": "<img src=\"https://firebasestorage.googleapis.com/v0/b/gamediary-blog.appspot.com/o/images%2F%EC%9A%B0%EC%8A%B9.png?alt=media&token=cb994872-fd9f-4686-90a5-b5bda11255ec\" alt=\"우승.png\" />",
+      "title": "이런망할",
+      "content": "<p>ㅎㅎㅎㅎ 안녕하세요~!!! 홓ㅎㅎㅎ</p>",
+      "date": "2023-04-02",
+      "isPrivatresecret": false,
+      "isNotice": false,
+      "Steam": false,
+      "Console": true,
+      "id": 2
     }
   ]
 }
